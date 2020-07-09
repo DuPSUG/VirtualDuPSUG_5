@@ -1,0 +1,33 @@
+@baseUri = https://graph.microsoft.com/beta/devicemanagement
+##
+## Endpoint Security Policies
+##
+### Get the templates
+GET {{baseUri}}/templates HTTP/1.1
+Authorization: {{Auth}}
+Content-Type: application/json
+
+### Get All Intents
+# @name intents
+GET {{baseUri}}/Intents HTTP/1.1
+Authorization: {{Auth}}
+Content-Type: application/json
+
+### Expand first intent
+# @name intentVal
+GET {{baseUri}}/Intents/{{intents.response.body.value[0].id}}/settings?$expand=Microsoft.Graph.DeviceManagementComplexSettingInstance/Value HTTP/1.1
+Authorization: {{Auth}}
+Content-Type: application/json
+
+### Get Template categories
+# @name categories
+GET {{baseUri}}/templates/{{intents.response.body.value[0].templateId}}/categories HTTP/1.1
+Authorization: {{Auth}}
+Content-Type: application/json
+
+### Get settingDefinitions
+
+# @name settingDefs
+GET {{baseUri}}/templates/{{intents.response.body.value[0].templateId}}/categories/{{categories.response.body.value[0].id}}/settingDefinitions HTTP/1.1
+Authorization: {{Auth}}
+Content-Type: application/json

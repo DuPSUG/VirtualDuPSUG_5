@@ -1,0 +1,11 @@
+@baseUri = https://graph.microsoft.com/beta/devicemanagement
+
+# @name scripts
+GET {{baseUri}}/deviceManagementScripts HTTP/1.1
+Authorization: {{Auth}}
+Content-Type: application/json
+
+### Look into the first result
+GET {{baseUri}}/deviceManagementScripts/{{scripts.response.body.value[0].id}}?$expand=Assignments HTTP/1.1
+Authorization: {{Auth}}
+Content-Type: application/json
